@@ -9,7 +9,12 @@ module AresMUSH
       end
       
       def handle
-        client.emit_success "Done!"
+        piggies = integer_arg(cmd.args)
+        if (piggies < 5)
+          client.emit_ooc "#{piggies} is a small number of piggies."
+        else
+          client.emit_ooc "#{piggies} is a lot of piggies!"
+        end
       end
 
     end
