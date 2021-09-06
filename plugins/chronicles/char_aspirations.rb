@@ -1,6 +1,5 @@
 module AresMUSH
   class Character
-    attribute :asp
-    attribute :term
+    attribute :aspirations
   end
 end
