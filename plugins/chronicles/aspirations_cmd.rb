@@ -3,7 +3,7 @@ module AresMUSH
     class SetAspCmd
       include CommandHanlder
 
-      attr_accessor :desc :term :asp
+      attr_accessor :desc, :term, :asp
 
       def handle
         args = cmd.parse_args(ArgParser.arg1_equals_arg2)
