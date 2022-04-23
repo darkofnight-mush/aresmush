@@ -132,14 +132,23 @@ module AresMUSH
       return [] if !enactor
       pose_chars = scene.participants
          .select { |p| Scenes.can_pose_char?(enactor, p) }
-      
-      pose_chars << enactor
+            
+      AresCentral.alts(enactor).each do |alt|
+        if (Scenes.can_read_scene?(alt, scene))
+          pose_chars << alt
+        end
+      end
          
       pose_chars.uniq
-         .sort_by { |p| [ p == enactor ? 0 : 1, p.name ]}
+         .sort_by { |p| [ Scenes.poseable_char_order(scene, enactor, p), p.name ]}
          .map { |p| { id: p.id, name: p.name, icon: Website.icon_for_char(p) }}   
     end
     
+    def self.poseable_char_order(scene, enactor, char)
+      return 0 if enactor == char
+      return 1 if scene.participants.include?(char)
+      return 2
+    end
 
     def self.parse_web_pose(pose, enactor, pose_type)
       is_setpose = pose_type == 'setpose'
@@ -213,7 +222,8 @@ module AresMUSH
         description: Website.format_markdown_for_html(char.description || ""),
         status_message: Profile.get_profile_status_message(char),
         is_ooc: char.is_admin? || char.is_playerbit?,
-        custom: Scenes.custom_char_card_fields(char, viewer)
+        custom: Scenes.custom_char_card_fields(char, viewer),
+        fs3: FS3Skills.is_enabled? ? FS3Skills.build_web_char_data(char, viewer) : nil
       }
     end
   end
