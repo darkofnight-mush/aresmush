@@ -81,7 +81,12 @@ module AresMUSH
           return OwnerListCmd
         end
       when "room"
-        return RoomsCmd
+        case cmd.switch
+        when "icon"
+          return RoomIconCmd
+        else
+          return RoomsCmd
+        end
       when "roomtype"
         return RoomTypeCmd
       when "teleport"
@@ -122,8 +127,14 @@ module AresMUSH
       case request.cmd
       when "area"
         return AreaRequestHandler
+      when "createArea"
+        return AreaCreateRequestHandler
+      when "createLocation"
+        return LocationCreateRequestHandler
       when "deleteArea"
         return AreaDeleteRequestHandler
+      when "deleteLocation"
+        return LocationDeleteRequestHandler
       when "editArea"
         return AreaEditRequestHandler
       when "editLocation"
@@ -132,6 +143,8 @@ module AresMUSH
         return LocationsRequestHandler
       when "location"
         return LocationRequestHandler
+      when "manageLocations"
+        return ManageLocationsRequestHandler
       when "searchLocations"
         return SearchLocationsRequestHandler
       end

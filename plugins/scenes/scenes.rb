@@ -102,10 +102,6 @@ module AresMUSH
           return SceneTypesCmd
         when "log"
           return SceneLogCmd
-        when "clearlog"
-          return SceneLogClearCmd
-        when "enablelog", "disablelog"
-          return SceneLogEnableCmd
         when "repose"
           return SceneReposeCmd
         when "report"
@@ -159,6 +155,8 @@ module AresMUSH
         return CreatePlotRequestHandler
       when "createScene"
         return CreateSceneRequestHandler
+      when "customSceneData"
+        return CustomSceneDataHandler
       when "editScenePose"
         return EditScenePoseRequestHandler
       when "deleteScenePose"
