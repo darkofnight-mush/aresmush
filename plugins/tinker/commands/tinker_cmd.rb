@@ -3,23 +3,21 @@ module AresMUSH
     class TinkerCmd
       include CommandHandler
       
-      attr_accessor :asp, :term, :goal, :asp_list
-      
       def check_can_manage
         return t('dispatcher.not_allowed') if !enactor.has_permission?("tinker")
         return nil
       end
       
-      @asp_list = Array.new
-      
       def handle
         args = cmd.parse_args(ArgParser.arg1_equals_arg2)
-        self.term = args.arg1
-        self.goal = args.arg2
-        self.asp = { goal => term }
-        @asp_list >> self.asp
-        client.emit_success "Done!"
+        num_piggies = integer_arg(args.arg1)
+        names = list_arg(args.arg2)
         
+        client.emit "You have #{num_piggies} piggies and their names are #{names}.join(, )"
+        
+        if (num_piggies > names.count)
+          client.emit_failure "You didn't name all your piggies!"
+        end
       end
 
     end
