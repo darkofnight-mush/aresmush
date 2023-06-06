@@ -37,6 +37,10 @@ GEM
     erubis (2.7.0)
     eventmachine (1.2.7)
     ffi (1.15.5)
+    handlebars-engine (0.3.3)
+      handlebars-source
+      mini_racer
+    handlebars-source (4.7.7)
     hiredis (0.6.3)
     htmlentities (4.3.4)
     http_parser.rb (0.8.0)
@@ -44,7 +48,10 @@ GEM
       concurrent-ruby (~> 1.0)
     jmespath (1.6.2)
     json (2.3.1)
+    libv8-node (18.16.0.0-x86_64-linux)
     log4r (1.1.10)
+    mini_racer (0.8.0)
+      libv8-node (~> 18.16.0.0)
     minitest (5.18.0)
     mustermann (2.0.2)
       ruby2_keywords (~> 0.0.1)
@@ -54,7 +61,7 @@ GEM
       nest (~> 3)
       redic (~> 1.5.0)
       stal
-    ox (2.14.14)
+    ox (2.14.16)
     rack (2.2.7)
     rack-protection (2.2.4)
       rack
@@ -112,6 +119,7 @@ DEPENDENCIES
   em-websocket (~> 0.5)
   erubis (~> 2.7.0)
   eventmachine (~> 1.2.7)
+  handlebars-engine (>= 0.3)
   htmlentities (~> 4.3.4)
   i18n (~> 0.7)
   json (~> 2.3.1)
