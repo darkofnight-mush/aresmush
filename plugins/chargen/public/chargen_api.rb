@@ -1,0 +1,158 @@
+module AresMUSH
+  module Chargen
+    def self.is_enabled?
+      !Global.plugin_manager.is_disabled?("chargen")
+    end
+    
+    def self.format_review_status(msg, error)
+      "#{msg.ljust(50)} #{error}"
+    end
+    
+    def self.is_chargen_locked?(char)
+      char.is_approved? || char.chargen_locked
+    end
+    
+    def self.check_chargen_locked(target)
+      # Note: Most of these commands work on enactor-only, so we allow admins to change whatever they want
+      # on themselves. The commands that allow other players separately check whether to allow admins to override
+      # the lock.
+      return nil if target.is_admin?
+      return t('chargen.cant_be_changed') if target.is_approved?
+      return t('chargen.app_in_progress') if target.chargen_locked
+      return nil
+    end
+    
+    def self.is_in_stage?(char, stage_name)
+      Chargen.stage_name(char) == stage_name
+    end
+    
+    def self.hook_app_review(char)
+      if !Global.read_config('chargen', 'hooks_required')
+        return ""
+      end
+        
+      message = t('chargen.hook_review')
+      status = char.rp_hooks.blank? ?  t('chargen.not_set') : t('chargen.ok')
+      
+      Chargen.format_review_status(message, status)
+    end
+    
+    def self.approval_status(char)
+      if (char.on_roster?)
+        status = "%xb%xh#{t('chargen.rostered')}%xn"
+      elsif (char.is_npc?)
+        status = "%xb%xh#{t('chargen.npc')}%xn"
+      elsif (char.idled_out?)
+        status = "%xr%xh#{t('chargen.idled_out', :status => char.idled_out_reason)}%xn"
+      elsif (!char.is_approved?)
+        status = "%xr%xh#{t('chargen.unapproved')}%xn"
+      else
+        status = "%xg%xh#{t('chargen.approved')}%xn"
+      end        
+      status
+    end
+          
+    def self.approval_job_notice(char)
+      return nil if char.is_approved?
+      char.approval_job ? t('chargen.approval_reminder') : nil
+    end
+    
+    def self.submit_app(char, app_notes = nil)
+      job = char.approval_job
+      
+      app_notes = app_notes || t('global.none')
+      
+      if (!job)
+        result = Jobs.create_job(Global.read_config("chargen", "app_category"), 
+          t('chargen.application_title', :name => char.name), 
+          t('chargen.app_job_submitted', :notes => app_notes), 
+          char)
+      
+        if (result[:error])
+          raise "Problem submitting application: #{job[:error]}"
+        end
+        job = result[:job]
+        char.update(chargen_locked: true)
+        char.update(approval_job: job)
+        
+        return t('chargen.app_submitted', :notes => app_notes)
+      else
+        char.update(chargen_locked: true)
+        Jobs.change_job_status(char,
+          job,
+          Global.read_config("chargen", "app_resubmit_status"),
+          t('chargen.app_job_resubmitted', :notes => app_notes))
+          
+        return t('chargen.app_resubmitted')
+      end
+    end    
+      
+    # Approved AND active - won't count npcs, rosters, dead, etc.
+    def self.approved_chars
+      Idle.active_chars.select { |c| c.is_approved? }
+    end
+    
+    def self.welcome_message_args(model)
+      args = { 
+        name: model.name, 
+        nick: model.nick,
+        rp_hooks: model.rp_hooks || t('global.none'),
+        profile_link: "#{Game.web_portal_url}/char/#{model.name}",
+        position: '',
+        faction: '' }
+      
+      Demographics.all_groups.keys.each do |k|
+        args[k.downcase.to_sym] = model.group(k)
+      end
+      
+      args
+    end
+    
+    def self.build_web_profile_data(char, viewer)
+      
+      if (char.background.blank?)
+        show_background = false
+      else
+        show_background = char == viewer || char.on_roster? || char.bg_shared || Chargen.can_view_bgs?(viewer)
+      end
+      
+      {
+        can_approve: Chargen.can_approve?(viewer),
+        background: show_background ? Website.format_markdown_for_html(char.background) : nil,
+        rp_hooks: char.rp_hooks ? Website.format_markdown_for_html(char.rp_hooks) : ''
+      }
+    end
+    
+    def self.build_web_profile_edit_data(char, viewer, is_profile_manager)
+      bg_manager = Chargen.can_manage_bgs?(viewer)
+      
+      {
+        background: Website.format_input_for_html(char.background),
+        show_background_tab: bg_manager,
+        bg_shared: char.bg_shared,
+        rp_hooks: Website.format_input_for_html(char.rp_hooks)
+      }
+    end
+    
+    def self.save_web_profile_data(char, enactor, args)
+      char.update(rp_hooks: Website.format_input_for_mush(args['rp_hooks']))
+      char.update(bg_shared: args['bg_shared'].to_bool)
+      if (Chargen.can_manage_bgs?(enactor))
+        char.update(cg_background: Website.format_input_for_mush(args['background']))
+      end
+      return nil
+    end
+    
+    def self.export_bg(char)
+      template = BorderedDisplayTemplate.new char.rp_hooks, t('chargen.hooks_title', :name => char.name)
+      output = template.render
+      
+      template = BorderedDisplayTemplate.new char.background, t('chargen.background_title', :name => char.name)
+      output << "%R%R"
+      output << template.render
+    
+      output
+    end
+    
+  end
+end

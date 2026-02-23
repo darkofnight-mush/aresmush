@@ -1,0 +1,16 @@
+<%= header %>
+%xh<%= t('channels.channels_title') %>%xn
+<%= divider %>
+<% channels.each do |c| %>
+<%= channel_on_indicator(c) -%>
+ <%= left(channel_name(c),20) -%>
+ <% if is_on_channel?(c) %>
+ <%= channel_color(c) %><%= left(channel_alias(c), 15) %>%xn<%= '' -%>
+ <% else %>
+ <%= left('', 15) -%>
+ <% end %>
+ <%= c.description %>
+<% end %>
+
+<%= t('channels.alias_notice') %>
+<%= footer %>

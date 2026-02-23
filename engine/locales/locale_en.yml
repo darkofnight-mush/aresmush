@@ -1,0 +1,109 @@
+en:
+    global:
+        y:  "Yes"
+        n:  "No"
+        none: "None"
+        or: "or"
+        done: "Done!"
+        ok: "OK"
+        deleted_character: "(Deleted)"
+        system: "System"
+        afk_status: "AFK"
+        offline_status: "Off"
+        web_status: "Web"
+
+    date:
+        # Don't forget the nil at the beginning; there's no such thing as a 0th month
+        month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+        abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
+        day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
+        abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+        order:
+        - year
+        - month
+        - day
+
+    dispatcher:
+        unexpected_error: |
+          Sorry! The code lost its mind while executing a command.  Not your fault.
+          Please send this error information to the admins and tell them what you were doing at the time:
+          Description: "%{desc}"
+          Error: "%{error_info}"
+        huh: "Command %{command} is not recognized.  See `help`."
+        not_allowed: "You are not allowed to do that."
+        must_be_logged_in: "You must be logged in to use this command."
+        cmd_no_args: "This command does not take any arguments."
+        cmd_no_switches: "This command does not take any switches (/whatever)."
+        cmd_invalid_switch: "That is not a valid switch (/whatever) for this command."
+        invalid_syntax: "That is not the right command format. See `help %{cmd}`."
+        invalid_on_off_option: "Please use 'on' or 'off'."
+        you_are_statue: "You have been turned into a statue and are locked out of all game commands."
+    
+    db:
+        object_not_found: Nothing found with that name.
+        object_ambiguous: Multiple results found with that name.
+        no_char_online_found: "%{name} is not online, though they might be playing via the web portal."
+        ambiguous_char_online: "There's more than one character online matching %{name}.  Please be more specific."
+        
+    
+    object:
+       say: '%{name} says, "%{msg}"'
+       pose: "%{name} %{msg}"
+       semipose: "%{name}%{msg}"
+       me: me
+       here: here
+       
+    validation:
+        password_too_short: "Passwords must be at least 5 characters long."
+        password_cant_have_equals: "Passwords cannot contain the = character."
+        char_name_taken: "That name is already taken."
+        name_too_short: "Names must be at least 2 characters long."
+        name_must_be_capitalized: "Names must be capitalized."
+        name_is_restricted: "That name is not allowed."
+        name_contains_invalid_chars: "Special characters are not allowed in names, except for ' and -."
+
+    chars_connected:
+        zero: "No characters connected."
+        one: "One character connected."
+        other: "%{count} characters connected." 
+        
+    client:   
+        welcome: Welcome to AresMUSH version %{version}! https://aresmush.com%R%%% Type 'help' to learn how to play.  Type 'tour' to connect to a temporary character to explore. 
+        anonymous: Anonymous
+
+    number:
+        separator: '.'
+
+    pages:
+        page_x_of_y: "page %{x} of %{y}"
+        not_that_many_pages: "There aren't that many pages."
+        no_items: "There are no items to display."
+        
+    time:
+        seconds: "%{time}s"
+        minutes: "%{time}m"
+        hours: "%{time}h"
+        days: "%{time}d"
+        weeks: "%{time}w"
+        am: "am"
+        pm: "pm"
+        formats:
+          default: "%Y/%m/%d"        
+              
+        
+    api:
+        # Common command error messages.
+        invalid_char_id: "Invalid character ID."
+        invalid_handle: "Invalid handle.  Make sure it starts with '@'."
+        character_not_linked: "That character is not linked to that handle."
+        use_command_on_central: "You need to use this command on AresCentral."
+        use_command_on_satellite: "You can't use this command on AresCentral."
+        unrecognized_command: "Unrecognized command."
+        no_handle_set: "You must link this character to a handle before using that command."
+        
+        # Engine errors
+        api_error: "Error communicating with AresCentral. Please contact the admin if the problem persists."
+        response_error: "Error from remote server: %{error}."
+        sending_to_remote: "Sending message to AresCentral.  This may take a moment."
+        api_cipher_error: "Error communicating with AresCentral.  Please contact the admin if the problem persists."
+        game_not_found: "Game not found."  

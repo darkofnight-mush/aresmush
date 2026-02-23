@@ -1,0 +1,17 @@
+---
+en:
+  achievements:
+      achievement_earned: "%{name} has earned the achievement: %{message}"
+      already_has_achievement: "%{name} already has that achievement."
+      invalid_achievement: "That is not a valid achievement."
+      achievement_added: "Achievement added!"
+      achievement_removed: "Achievement removed!"
+      doesnt_have_achievement: "%{name} doesn't have that achievement."
+      achievements_title: "Achievements for %{name}"
+      achievement_noification_message: "New achievement: %{message}"
+      all_achievements_title: "All Achievements"
+      achievements_earned_title: "Achievements Earned"
+      achievements_earned_message: "Achievements earned in the last %{days} days:"
+      words_written: "Words written in scenes:"
+      scenes_participated: "Scenes participated in:"
+      words_per_scene: "Words per scene:"

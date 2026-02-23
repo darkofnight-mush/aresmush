@@ -1,0 +1,25 @@
+en:
+    help:
+        toc: "%{category} Topics"
+        topic: "%{category}: %{topic}"
+        not_found_alternatives: "No topic found for '%{topic}'.  Maybe you meant one of these? %{alts}"
+        not_found: "No help found for '%{topic}.'"
+        error_loading_help: "Error loading help %{topic}: %{error}."
+        other_help_libraries: "Help Libraries:"
+        unrecognized_help_library: "That is not a valid help library."
+        web_help_tip: "The help files are best viewed on the web portal.  See %xhhelp website%xn."
+        no_help_found: "Command %{command} not found.  For more help, see the web portal.  You may be looking for one of these topics: %{url}."
+        
+        help_topic_header: "Help for '%{command}'"
+        help_topic_footer: "View help online at the web portal: %{url}"
+        help_intro: "This help system will guide you through the game commands. Type %%xchelp <topic>%%xn (e.g., help beginner) to view a topic.%RYou can also browse the help on the game's web portal at %{help_url}."
+        command_help_title: "Command Quick Reference"
+        command_help_footer: "For more help, use %xchelp %{topic}%xn or visit the web portal: %{url}."
+        beginner_set: "You set your beginner flag to %{option}."
+        help_topic_prompt: "To see a help topic, type %xchelp <topic>%xn (e.g., help beginner)."
+        pages_tip: "ctd. in help%{next_page}"
+        quickref_tip: "Use %xcqr <command>%xn for a command quick reference."
+        related_topics_title: "Other topics in '%{section}':"
+
+        regular_commands: "Player Commands"
+        manage_commands: "Admin Commands"

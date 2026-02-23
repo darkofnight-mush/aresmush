@@ -1,0 +1,19 @@
+---
+achievements:
+  achievements: {}
+  permissions:
+    manage_achievements: Award and remove achievements.
+  shortcuts:
+    achievements: achievement
+  types:
+    community: fa-users
+    portal: fa-globe
+    fs3: fa-cubes
+    story: fa-book
+  notification_cron:
+    hour:
+    - 19
+    minute:
+    - 30
+  notification_category: System Notices
+  notification_days: 1

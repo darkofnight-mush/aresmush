@@ -1,0 +1,14 @@
+<%= header %>
+<%= center( mush_name, 78 ) %>
+<%= divider %>
+%xh<%= t('who.where_header') %>%xn
+<% chars_by_room.each do |c| %>
+<%= profile_field(c, 'status_color') %><%= left( profile_field(c, 'status'), 7 ) %><%= "%xn" -%>
+<%= left( profile_field(c, 'name'), 23 ) -%>
+<%= left( profile_field(c, 'room'), 36 ) -%>
+<%= left( profile_field(c, 'connected'), 7 ) -%>
+<%= profile_field(c, 'idle') %>
+<% end %>
+<%= divider %>
+%xr<%= center( online_total, 25 ) %>%xn %xg<%= center( ic_total, 25 ) %>%xn %xb<%= center( online_record, 25 ) %>%xn
+<%= footer %>

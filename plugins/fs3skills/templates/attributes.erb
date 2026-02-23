@@ -1,0 +1,9 @@
+<%= header %>
+<%= attr_blurb %>
+
+<% data[:attrs].each do |a| %>
+<%= left( a['name'], 14)  %> <%= a['desc'] %>
+<% end %>
+
+<%= page_footer %>
+<%= footer %>

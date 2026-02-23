@@ -1,0 +1,11 @@
+en:
+    friends:
+        friends_header: "Friend               Location                       Last On"
+        handle_friends_header: "Handle Friends With Alts On This Game"
+        already_friend: "%{name} is already on your friends list."
+        not_friend: "%{name} is not on your friends list."
+        friend_added: "%{name} has been added to your friends list."
+        friend_removed: "%{name} has been removed from your friends list."
+        connected: "-CONNECTED-"
+        invalid_friend_name: "Invalid friend name."
+        note_added: "You add a note about %{name}."

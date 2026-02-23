@@ -1,48 +1,48 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
-.DS_Store
+# Secret files
+# -----------------------------
+secrets.yml
+real_database.yml
+packer_vars.json
+
+# Logs and errors
+# -----------------------------
+*.log
 errors.txt
+/game/logs/
 
-# uploads
-
-/public/theme_images
-/public/uploads
-
-# compiled output
-/dist/
-/tmp/
-
-# dependencies
-/declarations/
-/node_modules/
-
-# misc
-/.env*
-/.pnp*
-/.sass-cache
-/.eslintcache
-/connect.lock
-/coverage/
-/libpeerconnection.log
-/npm-debug.log*
-/testem.log
-/yarn-error.log
-
-# ember-try
-/.node_modules.ember-try/
-/npm-shrinkwrap.json.ember-try
-/package.json.ember-try
-/package-lock.json.ember-try
-/yarn.lock.ember-try
-
-# broccoli-debug
-/DEBUG/
-
-# Generated
-
-aresconfig.js
+# Generated files
+# -----------------------------
+.yardoc
+doc/
+wiki_export
+wiki_md
 calendar.ics
+.sass-cache
+.DS_Store
+tmp/restart.txt
+applied.txt
+*.zip
+blacklist.txt
+*.css
+aresconfig.js
+_last_install.txt
+nginx.default
+sitemap.xml
+redis/
+.bundle
 
-# Ember upgrade junk
+# Process ID scripts
+# -----------------------------
+save_pid.txt
+killares
+*.pid
+*.pid.lock
 
-codemods.log
-MODULE_REPORT.md
+# Website file storage
+# -----------------------------
+/game/uploads
+/theme_archive
+
+# Game directory
+# -----------------------------
+/game/

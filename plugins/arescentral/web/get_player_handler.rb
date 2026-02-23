@@ -1,0 +1,70 @@
+module AresMUSH
+  module AresCentral
+    class GetPlayerRequestHandler
+      def handle(request)
+        id = request.args['id'] || ''
+        player = Character.find_one_by_name(id)
+        enactor = request.enactor
+              
+        if (!player)
+          return { error: t('webportal.not_found')}
+        end
+
+        error = Website.check_login(request, true)
+        return error if error
+        
+        profile = player.profile.each_with_index.map { |(section, data), index| 
+          {
+            name: section.titlecase,
+            key: section.parameterize(),
+            text: Website.format_markdown_for_html(data),
+            active_class: index == 0 ? 'active' : ''  # Stupid bootstrap hack
+          }
+        }
+        if (player.handle && !player.handle.profile.blank?)
+          handle_profile = "#{player.handle.profile}\n\n----\n*#{t('arescentral.view_full_profile', :name => player.handle.name)}*"
+          handle_profile_data = {
+            name: "Handle Profile",
+            key: "arescentral",
+            text: Website.format_markdown_for_html(handle_profile),
+            active_class: profile.empty? ? "active" : "" 
+          }
+          profile << handle_profile_data
+        end
+        
+        roles = Roles.build_web_profile_data(player, enactor)
+        if (roles)
+          roles = roles[:roles]
+        end
+        
+        if (Achievements.is_enabled?)  
+          achievements = {}
+          alts = AresCentral.alts(player)
+          alts = alts.concat Character.all.select { |c| c.content_tags.include?("player:#{player.name}".downcase)}
+          alts.each do |alt|
+            achievements[alt.name] = Achievements.build_achievements(alt)
+          end
+        else 
+          achievements = nil
+        end
+        
+        prefs = Manage.is_extra_installed?("prefs") ? Website.format_markdown_for_html(player.rp_prefs) : nil
+        
+         {
+           id: player.id,
+           handle: player.handle ? player.handle.name : nil,
+           name: player.name,
+           icon: Website.icon_for_char(player),
+           alts: player.alts.map { |a| {name: a.name, icon: Website.icon_for_char(a)} },
+           can_manage: enactor && Profile.can_manage_char_profile?(enactor, player),
+           achievements: achievements,
+           admin_role_title: player.role_admin_note,
+           profile: profile,
+           rp_prefs: prefs,
+           roles: roles,
+           siteinfo: (enactor && enactor.is_admin?) ? Login.build_web_site_info(player, enactor) : nil
+         }
+       end
+     end
+  end
+end

@@ -1,0 +1,42 @@
+en:
+    sweep:
+        cant_find_exit: "There doesn't seem to be an exit out of this room."
+        sweep_complete: "Disconnected and idle players have been swept out of the room."
+        kick_allowed: "You can use the sweep/kick command to move them outside."
+        listening_chars: "Disconnected Players in this Room"
+        moved_by_room_sweep: "You've been moved outside because your room was swept of idle and disconnected players."
+    edit:
+        prefix_cleared: "Edit prefix cleared."
+        prefix_set: "Edit prefix set."
+    save:
+        text_saved: "You have saved that text for later."
+        recall_title: "Saved Text"
+        invalid_recall_number: "That is not a valid number."
+    ansi:
+        colors_title: "ANSI Colors"
+        colors_subtitle: "Foreground Example          Background Example          ANSI-only"
+        x_or_c: "See 'help ansi' for help using colors."
+        color_mode_set: "Color mode set to %{option}."
+        invalid_color_mode: "Invalid color mode.  Try one of these: %{modes}."
+    ascii:
+        ascii_mode_set: "ASCII-only mode is now %{option}."
+    utils:
+        no_set_cmd: "AresMUSH has no set command.  There are individual commands to set various things.  Try searching the help files with `help <topic>` or ask for help."
+        screen_reader_set: "Screen reader mode is now %{option}."
+        emoji_mode_set: "Emoji have been turned %{option}."
+    dice:
+        invalid_dice_string: "You may only roll up to 10 dice in the form <num>d<sides> (e.g. 6d10)."
+        rolls_dice: "%{name} rolls %{dice}: %{results}."
+    shortcuts:
+        shortcut_deleted: "Shortcut deleted."
+        shortcut_added: "Shortcut added."
+        shortcuts_title: "Personal Shortcuts"
+        shortcut_does_not_exist: "That shortcut does not exist."
+    notes:
+        notes_set: "Notes set."
+        notes_admin_title: "Admin Notes for %{name}"
+        notes_shared_title: "Shared Notes for %{name}"
+        notes_player_title: "Player Notes for %{name}"
+        invalid_notes_section: "Invalid notes section.  Try one of these: %{sections}"
+    echo:
+        echo_to_room: "%%%% %{name} shows: %{message}"

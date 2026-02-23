@@ -1,0 +1,22 @@
+<%= header %>
+%xh<%= char.fullname %> (<%= char.name %>)
+
+%xh<%= t('idle.wiki_page') %>%xn <%= website %>
+
+%xh<%= t('idle.contact') %>%xn <%= char.roster_contact %>
+
+%xh<%= t('idle.played_before') %>%xn <%= char.roster_played.yesno %>
+          
+%xh<%= t('idle.notes') %>%xn
+<%= char.roster_notes %>
+
+%ld
+<% if app_required %>
+%xr%xh<%= t('idle.roster_app_required') %>%xn
+<%= app_template %>
+
+<%= t('idle.roster_app', :name => char.name ) %>
+<% else %>
+<%= t('idle.roster_claim', :name => char.name) %>
+<% end %>
+<%= footer %>

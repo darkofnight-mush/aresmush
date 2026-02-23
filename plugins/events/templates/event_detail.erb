@@ -1,0 +1,20 @@
+%lh
+%xh<%= left( event.title, 30 ) %>%xn
+
+%xh<%= t('events.starts_at_title')%>%xn <%= start_datetime_local %> (<%= start_time_standard %>)
+%xh<%= t('events.who_title')%>%xn <%= event.who %>
+%xh<%= t('events.tags_title') %>%xn <%= event.content_tags.join(" ") %>
+
+<%= event.description %>
+<% if !event.content_warning.blank? %>
+
+%xh%xr<%= t('events.content_warning') %>%xn <%= event.content_warning %>
+<% end %>
+%ld
+%xh<%= t('events.signups')%>%xn
+
+<% event.ordered_signups.each_with_index do |s, i| %>
+<%= left("#{i+1}.", 3) %><%= s.character.name %> <%= signup_comment(s) %>
+<% end %>
+
+%lf

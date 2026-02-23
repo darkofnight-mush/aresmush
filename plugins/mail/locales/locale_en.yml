@@ -1,0 +1,58 @@
+en:
+    mail:
+        unread_marker: "%xyU%xn"
+        trashed_marker: "%xx%xhX%xn"
+        
+        message_sent: "Mail sent."
+        message_forwarded: "Mail forwarded."
+        new_mail: "New mail from %{from}: %{subject}."
+        invalid_message_number: "That is not a valid message number."
+        invalid_recipient: "%{name} is not a valid recipient."
+        message_deleted: "Message '%{subject}' is marked as trash."
+        message_undeleted: "Message '%{subject}' is no longer marked as trash."
+        trash_emptied: "Trashed mail messages are now deleted."
+        no_unread_messages: "No new mail messages to read."
+        unread_messages: "%{count} unread messages. %xh%xx(mail/new)%xn"
+        
+        inbox_title: "  #         From                   Subject                         Date"
+        sent_title:  "  #         To                     Subject                         Date"
+        
+        forwarded_subject: "Fwd: %{subject}"
+        reply_subject: "Re: %{subject}"
+        
+        all_tags: "All Tags"
+        no_spaces_in_tags: "Tags may not contain spaces."
+        tag_added:  "You add the %{name} tag to the message."
+        tag_removed: "You remove the %{name} tag from the message."
+        message_archived: "Message archived."
+        tags_cant_be_empty: "Mail tags can't be empty."
+        
+        tags: "Tags:"
+        from: "From:"
+        to: "To:"
+        sent: "Sent:"
+        inbox: "Inbox"
+        sent_mail_notice: "You need to have the 'sentmail' option on for messages to appear here."
+        sent_review: "Sent Mail to %{name}"
+        original_message: "Original Message"
+        cant_unsend_read_mail: "You can't unsend mail that has already been read."
+        mail_unsent: "You unsend the mail message.  Note!  If there were multiple recipients, you must unsend the message for each of them separately."
+        filters_notice: "Filters enabled.  Use %xcmail/inbox%xn to get back to your inbox."
+
+        mail_started: "You start composing a mail with subject: %{subject}."
+        not_composing_message: "You are not composing a mail message."
+        mail_added: "You add to your mail message."
+        proof: "%xhTo:%xn %{to}%r%xhSubject:%xn %{subject}%r%xhBody:%xn%r%{body}"
+        mail_composition_tossed: "You throw away the mail message you were composing."
+        body_empty: "You have not entered any text in your message."
+
+        too_much_for_backup: "You have too many messages for the automatic backup feature.  You'll have to read them manually.  Sorry."
+        starting_backup: "Starting mail backup.  Your messages will print out one by one with a short delay in-between to avoid spamming your client."
+
+        sentmail_off: "You will no longer be automatically CC'd on messages you send."
+        sentmail_on: "You will be automatically CC'd on messages you send.  You can see them with mail/sent."
+        error_sending_mail: "Error sending mail.  Check your 'to' list."
+        
+        mail_reported_body: "%{reporter} has reported an offensive mail message from %{name}.%R%RReason:%R"
+        mail_reported_title: "Mail Reported"
+        mail_reported:  "Thank you.  A report has been created using the mail as evidence."

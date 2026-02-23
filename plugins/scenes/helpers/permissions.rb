@@ -1,0 +1,49 @@
+module AresMUSH
+  module Scenes
+    
+    def self.can_manage_scenes?(actor)
+      actor && actor.has_permission?("manage_scenes")
+    end
+    
+    def self.can_control_npcs?(actor)
+      actor && actor.has_permission?("control_npcs")
+    end
+    
+
+    def self.can_read_scene?(actor, scene)
+      return !scene.is_private? if !actor
+      return true if scene.owner == actor
+      return true if !scene.is_private?
+      return true if actor.room == scene.room
+      return true if AresCentral.play_screen_alts(actor).any? { |a| scene.invited.include?(a) }
+      Scenes.has_alt_in_scene?(actor, scene)
+    end
+    
+    def self.can_edit_scene?(actor, scene)
+      return false if !actor
+      return true if scene.owner == actor
+      if (scene.shared || !scene.is_private?)
+        return true if Scenes.can_manage_scenes?(actor)
+      end
+      Scenes.has_alt_in_scene?(actor, scene)
+    end
+    
+    def self.has_alt_in_scene?(actor, scene)
+      return false if !actor
+      participants = scene.participants.to_a.push(scene.owner).uniq
+      (participants & AresCentral.play_screen_alts(actor)).any?
+    end
+    
+    def self.can_delete_scene?(actor, scene)
+      return true if Scenes.can_manage_scenes?(actor)
+      Scenes.has_alt_in_scene?(actor, scene)
+    end
+    
+    def self.can_pose_char?(actor, char)
+      return true if char == actor
+      return true if AresCentral.is_alt?(actor, char)
+      (char.is_npc? && Scenes.can_control_npcs?(actor))
+    end
+    
+  end
+end

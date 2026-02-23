@@ -1,0 +1,38 @@
+en:
+    events:
+        invalid_event: "That is not a valid event number."
+        
+        starts_at_title: "Starts At:"
+        who_title: "Organizer:"
+        where_title: "Where:"
+        tags_title: "Tags:"
+        
+        event_deleted: "Event deleted."
+        event_updated: "Event updated."
+        event_created: "Event created."
+        
+        invalid_event_date: "Invalid event date format.  The date needs to be in this form: %{format_str}"
+        
+        event_starting_soon:  "Reminder: Event %{title} is starting at %{starts}."
+        events_updated: "Events have been updated."
+        
+        no_past_events: "You can't schedule events in the past."
+        signups: "Signups"
+        signed_up: "You sign up for the event."
+        not_signed_up: "%{name} is not signed up for that event."
+        signup_cancelled: "You cancel %{name}'s signup for the event."
+        signup_added: "%{name} has signed up for event %{title}."
+        signup_removed: "%{name} has cancelled their signup for event %{title}."
+        
+        upcoming_events_title: "Events in the Next 14 Days"
+        all_events_title: "All Events"
+        
+        event_deleted_notification: "Event '%{title}' has been deleted."
+        event_updated_notification: "Event '%{title}' has been updated."
+        event_created_notification: "Event '%{title}' has been created."
+        
+        event_updated_change: "%{title} updated."
+        event_deleted_change: "%{title} deleted."
+        event_created_change: "%{title} created."
+        
+        content_warning: "Content Warning:"

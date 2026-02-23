@@ -1,0 +1,84 @@
+en:
+    rooms:
+       char_has_arrived: "%{name} has arrived."
+       char_has_left: "%{name} has left."
+       screen_reader_arrived: "You have arrived at %{room}."
+       char_has_left_through_exit: "%{name} leaves for %{room} [%{exit}]."
+       room_created: "You build a room named %{name}.  It is an %xhIC%xn room. %xh%xx(help roomtype)%xn"
+       exit_created: "You open an exit from %{source_name} to %{dest_name}."
+       exit_already_exists: "An exit with that name already exists."
+       nowhere: "Nowhere"
+       cant_go_that_way: "You can't go that way."
+       room_directory: "Room Directory"
+       invalid_teleport_destination: "That is not a valid teleport destination.  Maybe you meant one of these: %{rooms}"
+       you_are_teleported: "%{name} is teleporting you to a new location."
+       cant_find_that_to_teleport: "Cannot find %{name} to teleport them."
+       cant_teleport_private_scene: "You can't teleport into a private scene."
+       can_only_link_exits: You can only link exits.
+       exit_linked: "The exit now leads to %{room}."
+       exit_source_linked: "The exit now leads from %{room} to here."
+       exit_unlinked: "Exit unlinked."
+       cant_open_exit_to_temp_room: "You can't link an exit to a temporary room."
+       destination_not_found: "Destination not found."
+       
+       meetme_target_missing: "You didn't invite anyone!"
+       no_meetme_invite: "Nobody has asked you to meet them."
+       receive_meetme_invite: "%{name} has invited you to meet them for RP at %{room}. %xh%xx(help meetme)%xn"
+       send_meetme_invite: "You invite %{name} for RP."
+       cant_meetme_self: "You can't meetme yourself!"
+       cant_meetme_newbie: "You can't meetme %{name} because they haven't been approved."
+       cant_meetme_if_newbie: "You can't use this command until you've been approved."
+
+       owners_set: "You set the room's owners."
+       owners_cleared: "You remove the room's owners."
+       no_room_owners_found: "No rooms with owners found."
+       owners_title: "Room Owners"
+       
+       grid_set: "You set the room's grid coordinates."
+       grid_cleared: "You clear the room's grid coordinates."
+       
+       invalid_room_type: "Invalid room type. Try one of these: %{types}."
+       room_type_set: "You set the room type."
+       
+       home_not_set: "You don't have a home!"
+       char_has_gone_home: "%{name} goes home."
+       home_set: "You make this your home."
+       char_has_gone_work: "%{name} goes to work."
+       work_set: "You make this your workplace."
+       work_not_set: "You don't have a workplace!"
+       
+       can_only_lock_exits: "You can only lock exits."
+       exit_locked: "Exit locked."
+       exit_unlocked: "Exit unlocked."
+       exit_lock_not_valid_role: "%{name} is not a valid role."
+       cant_go_through_locked_exit: "You can't go that way; the exit is locked."
+       cant_lock_exterior_rooms: "You cannot lock the way into an exterior room."
+       way_in_locked: "You lock the way in.  Please remember to unlock it when you're done."
+       way_in_unlocked: "You unlock the way in."
+       already_has_lock: "The way in already has a different kind of lock."
+       no_roles_specified: "You need to specify which roles the exit should be locked to."
+       multiple_rooms_found: "Multiple rooms found.  Maybe you meant one of these: %{rooms}."
+       
+       foyer_set: This room is now marked as a foyer.
+       foyer_cleared: This room is no longer marked as a foyer.
+       
+       ic_start_set: "New characters will now start in %{name}."
+       
+       area_set: "You set the room's area to %{area}."
+       area_cleared: "You clear the room's area."
+       area_not_found_creating: "Area %{area} not found - creating it."
+       area_not_found: "Area not found."
+       area_updated: "Area %{name} updated."
+       area_created: "Area %{name} created."
+       area_deleted: "Area %{name} deleted."
+       areas_title: "Areas"
+       area_already_exists: "Area %{name} already exists."
+       area_title: "Area %{area}"
+       area_locations_title: "Locations in %{area}"
+       area_parent_set: "You set the parent for %{name} to %{parent}."
+       circular_area_parentage: "You can't parent an area to itself or one of its descendants."
+       
+       cant_delete_area: "You can't delete an area that is used by rooms or is the parent of another area."
+       
+       icon_set: "Room icon set."
+       invalid_icon_type: "Invalid icon type. Try one of these: %{types}"

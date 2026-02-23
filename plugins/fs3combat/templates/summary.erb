@@ -1,0 +1,22 @@
+<%= header %>
+%xh<%= t('fs3combat.summary_title') %>%xn
+%ld
+<% combatants.each do |c| %>
+<%= left( c.name, 16 ) -%>
+<%= left( skill(c), 11 ) -%>
+<%= left( format_weapon(c), 18 ) -%>
+<%= left( c.armor, 15 ) -%>
+<%= left( c.stance, 11 ) -%>
+<%= left( format_vehicle(c) , 10) %>
+<%= left( slack(c), 16) -%>
+<%= left( format_damage(c), 11 ) -%>
+<%= left( combat_mods(c), 18 ) -%>
+<%= left( c.action ? c.action.print_action_short : '' , 20) %>
+%ld
+<% end %>
+
+<%= t('fs3combat.team_targets') %>
+<% combat.team_targets.each do |team, targets| %>
+<%= left( team, 15 ) %> <%= targets.join(", ")%>
+<% end %>
+<%= footer %>

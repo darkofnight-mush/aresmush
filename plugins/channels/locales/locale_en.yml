@@ -1,0 +1,80 @@
+en:
+    channels:
+        channel_already_exists: "Channel %{name} already exists."
+        channel_doesnt_exist: "Channel %{name} does not exist."
+
+        channel_created: "Channel created.  Default alias to speak on it: %{alias}.  You can change this with the channel/defaultalias command."
+        channel_renamed: "Channel renamed."
+        channel_being_renamed: "This channel is being renamed to %{new_name} by %{name}.%R  Your channel alias has been reset to %{alias}."
+        channel_deleted: "Channel deleted."
+        channel_being_deleted: "This channel is being deleted by %{name}."
+
+        desc_set: "Channel description set."
+        default_color_set: "The channel will now be displayed like so by default: %{name}."
+        color_set: "The channel will now be displayed like so: %{name}."
+        channel_renamed: "Channel %{old_name} is now named %{new_name}."
+        roles_set: "Channel roles updated."
+        default_alias_set: "Channel alias set to %{alias}."
+        invalid_channel_role: "%{name} is not a valid channel role."
+        title_set: "Channel title set."
+        roles_changed_by: "%{name} has changed the permissions on this channel."
+        announce_enabled: "You will now see connection messages on %{name}."
+        announce_disabled: "You will no longer see connection messages on %{name}."
+        channels: Channels
+        channels_title: "Channel                  Aliases         Description"
+        channel_who: "On channel %{name}: %{chars}." 
+        channel_aliases: "(+) = channel on     (X) = channel muted     (-) = channel off"
+        unable_to_determine_auto_alias: "Could not automatically pick an alias for this channel due to name conflicts.  Use channel/join <name>=<alias> to pick one yourself."
+        
+        joined_channel: "%{name} has joined this channel."
+        already_on_channel: "You are already on that channel."
+        not_on_channel: "You are not on that channel."
+        left_channel: "%{name} has left this channel."
+        has_disconnected: "%{name} has disconnected."
+        has_connected: "%{name} has connected."
+        
+        channel_muted: "Channel %{name} is now muted."
+        channel_unmuted: "Channel %{name} is no longer muted."
+        muted: " (muted)"
+        cant_talk_when_muted: "You can't talk on a channel while it's muted."
+
+        recall_history: "Chat History For %{name}"
+        invalid_recall_limit: "Please specify a number between 1 and 50."
+        recall_not_enabled: "Recall is not enabled on that channel."
+        
+        channel_titles_enabled: "You will now see channel titles on %{name}."
+        channel_titles_disabled: "You will no longer see channel titles on %{name}."
+        
+        invalid_alias: "%{a} is an invalid alias."
+        alias_in_use: "The alias %{channel_alias} is already in use for another channel."
+        channel_alias_hint: "%{alias} <msg>"
+        channel_alias_set: "You can use %{channel_alias} to talk on the %{name} channel. "
+        short_alias_warning: "Be aware that short channel aliases may conflict with other command shortcuts."
+        alias_number_warning: "Numbers in channel aliases are ignored."
+        alias_notice: "Use %xc<alias> <msg>%xn to talk on a channel.%RFor example: %xcq Hello!%xn to talk on the questions channel.%RYou can use the channel/alias command to change your channel aliases."
+        channel_command_hint: "Type 'channels' to see the commands to talk on different channels."
+        cant_use_channel: "You do not have permission to use that channel."
+        did_you_mean_page: "It looks like you're trying to do a page but used the channel command accidentally."
+        
+        channel_reported_body: "%{reporter} has reported the following conversation on the %{name} channel.%R%RReason:%R"
+        channel_reported_title: "Channel Reported"
+        channel_reported: "Thank you.  A report has been created using the channel log as evidence."
+        
+        channel_flagged_body: "%{reporter} has flagged the following message on the %{name} channel. It is hidden from non-admins on the channel."
+        channel_flagged_title: "Chat Message Flagged"
+        
+        char_added_to_channel: "You add %{char} to channel %{channel}."
+        char_removed_from_channel: "You remove %{char} from channel %{channel}."
+        force_added: "You have been added to channel %{channel} by %{char}."
+        force_removed: "You have been removed from channel %{channel} by %{char}."
+        
+        more_on_portal: "Full channel history is available on the web portal."
+        
+        everyone: Everyone
+        can_join_title: "Can Join:"
+        can_talk_title: "Can Talk:"
+        announce_logins_title: "Announce Logins:"
+        cant_talk_on_channel: "You aren't allowed to talk on that channel."
+        
+        channel_recall_cleared: "You clear the channel buffer on %{channel}."
+        name_required: "Channel name is required."

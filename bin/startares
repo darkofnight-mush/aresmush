@@ -1,0 +1,32 @@
+if [[ $EUID == 0 ]]; then
+   echo "This script should not be run as root.  Log out and log back in with your ares user." 
+   exit 1
+fi
+
+echo "Exporting default language settings."
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+bundle install
+
+echo "Running database updates."
+bundle exec rake migrate
+
+echo "Starting game engine."
+nohup bundle exec rake startares[$*] > /dev/null 2>errors.txt&
+export ARES_PID=$!
+
+echo "Creating kill script."
+echo kill -9 ${ARES_PID}  > bin/killares
+chmod +x bin/killares
+
+echo "Deploying website."
+cd /home/ares/ares-webportal
+bin/deploy
+
+sleep 3s
+
+if ps -p ${ARES_PID}  > /dev/null
+then echo -e "\033[32mAresMUSH started!  \033[0m"
+else echo -e "\033[31mAresMUSH failed to start.  The game may already be running. If not, check the highest-numbered log in game/logs for errors, or try starting the game in debug mode.\033[0m"
+fi

@@ -1,0 +1,13 @@
+%lh
+%xh<%= t('achievements.achievements_title', :name => char.name) %>%xn
+
+<% list.each do |name, data| %>
+<%= format_message(data) %> <%= staff_hint(name) %>
+<% end %>
+<% if show_scene_stats %>
+
+<%= t('achievements.words_written') %> <%= char.pose_word_count %>
+<%= t('achievements.scenes_participated') %> <%= char.scenes_participated_in.count %>
+<%= t('achievements.words_per_scene') %> <%= words_per_scene %>
+<% end %>
+%lf

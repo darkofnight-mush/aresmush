@@ -1,0 +1,25 @@
+<%= header %>
+<%= t('chargen.app_title', :name => char.name) %>
+<% if show_abilities %>
+<%= section_title(abilities_header) %>
+<%= abilities %>      
+<% end %>
+
+<%= section_title(t('chargen.demographics_review_title')) %>
+<%= demographics %>
+
+<%= section_title(t('chargen.misc_review_title')) %>
+<%= bg %>
+<%= desc %>
+<% if AresMUSH::Ranks.is_enabled? %>
+<%= ranks %>
+<% end %>
+<%= hooks %>
+<% if show_custom %>
+<%= custom %>
+<% end %>
+
+<%= section_title(t('chargen.app_review_title')) %>
+<%= job_info %>
+<%= t('chargen.review_summary') %>
+<%= footer %>

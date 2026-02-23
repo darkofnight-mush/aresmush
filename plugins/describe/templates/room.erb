@@ -1,0 +1,37 @@
+<%= header %>
+<%= left(room.name, 40) %> <%= right(area_and_grid, 37) %>
+<%= ooc_time %> ~ <%= ic_time %>
+<%= divider %>
+<%= description %>
+<% if details %>
+
+%xh<%= t('describe.details_available') %>%xn <%= details %>
+<% end %>
+<% if room.scene_set %>
+<%= divider %>
+%xg<%= t('describe.scene_set_title')%>%xn
+%xh<%= room.scene_set %>%xn
+<% end %>
+<% if logging_enabled %>
+
+%xy<%= center( t('describe.scene_log_active', :url => scene_url), 78 )%>%xn
+<% end %>
+<%= divider %>
+%xg<%= t('describe.players_title') %>%xn
+<% online_chars.each do |c| -%>
+%xh<%= char_name(c) %>%xn <%= char_tag(c)%><%= char_afk(c) %><%= char_shortdesc(c)%>
+<% end %> 
+
+<%= "%xg#{t('describe.exits_title')}%xn" -%>
+<% exits.each_with_index do |e, i| %>
+<%= exit_linebreak(i) %>%xh<%= left(exit_name(e), 5) %>%xn <%= left(exit_destination(e),30) -%>
+<% end %>
+<% if exits.count == 0 %>No way out!<% end %>
+<% if is_foyer %>
+<%= divider -%>
+<% foyer_exits.each_with_index do |e, i| %>
+<%= foyer_status(e, i) -%>
+<% end %>
+
+<% end %>
+<%= footer %>

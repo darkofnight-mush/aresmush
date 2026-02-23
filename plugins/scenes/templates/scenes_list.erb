@@ -1,0 +1,21 @@
+<%= header %>
+<%= center( mush_name, 78 ) %>
+<%= line_with_text( t('scenes.open_or_my_scenes')) %>
+<% active_scenes.each do |scene| %>
+%xh<%= left(title(scene), 32) %> %xn <%= left(last_activity(scene), 5) %> <%= location(scene) %> 
+<%= characters(scene) %> 
+<% if scene.has_notes? %>
+%xh<%= t('scenes.scene_notes') %>:%xn <%= scene.limit %>
+<% end %>
+<%= line('plain') %>
+<% end %>
+<% if show_private %>
+
+<%= line_with_text( t('scenes.private_scenes')) %>
+<% private_scenes.each do |scene| %>
+%xh<%= left(title(scene), 32) %>%xn <%= characters(scene) %>
+<% end %>
+<% end %>
+<%= divider %>
+%xh<%= t('scenes.scene_active_footer') %>%xn
+<%= footer %>

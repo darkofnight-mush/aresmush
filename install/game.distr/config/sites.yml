@@ -1,0 +1,5 @@
+---
+sites:
+  suspect: []
+  ban_proxies: false
+  max_connections: 20

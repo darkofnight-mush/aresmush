@@ -1,0 +1,12 @@
+%lh
+%xh<%= t('page.page_review_title', :title => title) %>%xn
+
+<% messages.each_with_index do |p, i| %>
+<%= left("#{starting_index + i + 1}. ", 4) %> [<%= time(p) %>] <%= p.message %>
+<% end %>
+<% if more_messages %>
+
+%ld
+<%= more_messages %>
+<% end %>
+%lf

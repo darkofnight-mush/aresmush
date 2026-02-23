@@ -1,0 +1,14 @@
+<%= header %>
+%xh<%= t('login.notices_title') %>%xn
+<% if motd %>
+
+%xh<%= t('login.motd_title') %>%xn <%= motd %>
+
+<% end %>
+
+<% paginator.page_items.each do |notice| %>
+<%= notice_unread(notice) %> <%= notice_timestamp(notice) %> <%= notice.message %>
+<% end %>
+
+<%= paginator.page_footer %>
+<%= footer %>
