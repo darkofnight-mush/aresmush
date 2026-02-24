@@ -30153,6 +30153,6 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("ares-webportal/app")["default"].create({"name":"ares-webportal","version":"v2.10.0+3c3916e7"});
+            require("ares-webportal/app")["default"].create({"name":"ares-webportal","version":"0.0.0+ae7752a0"});
           }
         
