@@ -1,0 +1,16 @@
+power_stats:
+  mage:
+    stat: gnosis
+    attribute_cap_bonus:
+      6: 1
+      7: 2
+      8: 3
+      9: 4
+      10: 5
+
+    skill_cap_bonus:
+      6: 1
+      7: 2
+      8: 3
+      9: 4
+      10: 5

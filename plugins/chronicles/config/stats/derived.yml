@@ -1,0 +1,27 @@
+# ============================================================
+# DERIVED STATS
+#
+# Calculated from attributes.
+# Stored here for display + future automation.
+# ============================================================
+
+derived:
+  defense:
+    formula: "min(dexterity, wits) + athletics"
+    description: "Ability to avoid attacks."
+    page: "CoD p. 159"
+
+  health:
+    formula: "stamina + size"
+    description: "Total physical durability."
+    page: "CoD p. 171"
+
+  initiative:
+    formula: "dexterity + composure"
+    description: "Turn order in combat."
+    page: "CoD p. 151"
+
+  speed:
+    formula: "strength + dexterity + 5"
+    description: "Movement speed per turn."
+    page: "CoD p. 161"

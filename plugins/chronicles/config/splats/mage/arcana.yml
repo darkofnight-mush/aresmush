@@ -1,0 +1,65 @@
+# ============================================================
+# ARCANA (MAGE)
+#
+# Magical disciplines used by Mages.
+# These function as splat-specific stats.
+#
+# Notes:
+# - Caps will later be enforced by Gnosis
+# - Path affinities (ruling/inferior) handled separately
+# ============================================================
+
+arcana:
+
+  death:
+    abbrev: dea
+    description: "Power over decay, ghosts, and the Underworld."
+    page: "MtAw p. 122"
+
+  fate:
+    abbrev: fate
+    description: "Luck, destiny, and probability."
+    page: "MtAw p. 123"
+
+  forces:
+    abbrev: frc
+    description: "Energy, light, fire, and motion."
+    page: "MtAw p. 124"
+
+  life:
+    abbrev: life
+    description: "Living bodies, healing, and transformation."
+    page: "MtAw p. 125"
+
+  matter:
+    abbrev: mat
+    description: "Inanimate physical substances and transmutation."
+    page: "MtAw p. 126"
+
+  mind:
+    abbrev: mnd
+    description: "Thoughts, emotions, and psychic influence."
+    page: "MtAw p. 127"
+
+  prime:
+    abbrev: prm
+    description: "Raw magic, mana, and enchantment."
+    page: "MtAw p. 128"
+
+  space:
+    abbrev: spc
+    description: "Distance, sympathy, and teleportation."
+    page: "MtAw p. 129"
+
+  spirit:
+    abbrev: spr
+    description: "Spirits and the Shadow Realm."
+    page: "MtAw p. 130"
+
+  time:
+    abbrev: tim
+    description: "Temporal perception, foresight, and manipulation."
+    page: "MtAw p. 131"
+
+metadata:
+  cap_type: "arcana"

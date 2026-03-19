@@ -1,0 +1,87 @@
+<%# ============================================================
+ # ROLL OUTPUT TEMPLATE
+ #
+ # This template is responsible ONLY for presentation.
+ # All dice logic is handled in roll_cmd.rb.
+ #
+ # SAFE TO MODIFY:
+ # - Formatting
+ # - Labels
+ # - Ordering of output
+ #
+ # DO NOT:
+ # - Recreate dice logic here
+ #
+ # ============================================================ -%>
+
+<% if chance_roll -%>
+<%= enactor.name %> rolls a chance die.
+
+Roll: <%= chance_roll %>
+<% if chance_result == :dramatic_failure -%>
+Dramatic Failure!
+<% elsif chance_result == :success -%>
+Success!
+<% else -%>
+Failure.
+<% end -%>
+<% else -%>
+<%= enactor.name %> rolls <%= base_pool %> dice.
+
+<% if flags.include?("willpower") -%>(+3 willpower)
+<% end -%>
+<%# -------------------------
+   Dice Tricks (single line)
+   ------------------------- -%>
+<% tricks = [] -%>
+<% tricks << "#{again_threshold}-again" if again_threshold != 10 -%>
+<% tricks << "Rote" if flags.include?("rote") -%>
+<% tricks << "Willpower" if flags.include?("willpower") -%>
+<% if tricks.any? -%>
+Dice Tricks: <%= tricks.join(", ") %>
+<% end -%>
+<%# -------------------------
+   Difficulty + Exceptional
+   ------------------------- -%>
+<% if difficulty != 8 -%>
+Difficulty: <%= difficulty %>
+<% end -%>
+<% if exceptional_threshold != 5 -%>
+Exceptional Threshold: <%= exceptional_threshold %>
+<% end -%>
+<%# -------------------------
+   Comment
+   ------------------------- -%>
+<% if comment && !comment.empty? -%>
+Comment: <%= comment %>
+<% end -%>
+<%# -------------------------
+   Stat Warnings
+   ------------------------- -%>
+<% if unknown_stats && unknown_stats.any? -%>
+Warning: Unknown stats: <%= unknown_stats.join(", ") %>
+<% end -%>
+<%# -------------------------
+   Roll Output
+   ------------------------- -%>
+<% rolls.each_with_index do |roll, i| -%>
+Roll <%= i + 1 %>: <%= roll.join(' ') %>
+<% end -%>
+<%# -------------------------
+   Rote Output
+   ------------------------- -%>
+<% if rote_rolls && !rote_rolls.empty? -%>
+Rote: <%= rote_rolls.join(' ') %>
+<% end -%>
+<% rote_explosions.each_with_index do |roll, i| -%>
+Rote Explosion <%= i + 1 %>: <%= roll.join(' ') %>
+<% end -%>
+<%# -------------------------
+   Exceptional Success
+   ------------------------- -%>
+<% if total_successes >= exceptional_threshold -%>
+Exceptional Success!
+<% end -%>
+
+Total Successes: <%= total_successes %>
+<% end -%>

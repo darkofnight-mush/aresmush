@@ -1,0 +1,110 @@
+# ============================================================
+# SKILLS
+#
+# Learned abilities. Often paired with attributes.
+# Supports specialties later.
+# ============================================================
+
+physical:
+  athletics:
+    description: "Running, jumping, climbing."
+    page: "CoD p. 72"
+
+  brawl:
+    description: "Unarmed combat."
+    page: "CoD p. 72"
+
+  drive:
+    description: "Operating vehicles."
+    page: "CoD p. 72"
+
+  firearms:
+    description: "Using guns."
+    page: "CoD p. 72"
+
+  larceny:
+    description: "Lockpicking, theft."
+    page: "CoD p. 72"
+
+  stealth:
+    description: "Sneaking and hiding."
+    page: "CoD p. 73"
+
+  survival:
+    description: "Wilderness survival."
+    page: "CoD p. 73"
+
+  weaponry:
+    description: "Melee combat."
+    page: "CoD p. 73"
+
+mental:
+  academics:
+    description: "Humanities knowledge."
+    page: "CoD p. 73"
+
+  computer:
+    description: "Programming and hacking."
+    page: "CoD p. 73"
+
+  crafts:
+    description: "Building and repairing."
+    page: "CoD p. 73"
+
+  investigation:
+    description: "Solving mysteries."
+    page: "CoD p. 74"
+
+  medicine:
+    description: "Medical treatment."
+    page: "CoD p. 74"
+
+  occult:
+    description: "Supernatural knowledge."
+    page: "CoD p. 74"
+
+  politics:
+    description: "Power structures and influence."
+    page: "CoD p. 74"
+
+  science:
+    description: "Scientific knowledge."
+    page: "CoD p. 74"
+
+social:
+  animal_ken:
+    abbrev: animal
+    description: "Handling animals."
+    page: "CoD p. 74"
+
+  empathy:
+    description: "Reading emotions."
+    page: "CoD p. 75"
+
+  expression:
+    description: "Artistic communication."
+    page: "CoD p. 75"
+
+  intimidation:
+    description: "Threats and coercion."
+    page: "CoD p. 75"
+
+  persuasion:
+    description: "Convincing others."
+    page: "CoD p. 75"
+
+  socialize:
+    description: "Navigating social situations."
+    page: "CoD p. 75"
+
+  streetwise:
+    description: "Criminal underworld knowledge."
+    page: "CoD p. 75"
+
+  subterfuge:
+    description: "Lying and deception."
+    page: "CoD p. 75"
+
+metadata:
+  cap: 5
+  specialties: true

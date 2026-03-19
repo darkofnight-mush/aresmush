@@ -1,0 +1,84 @@
+# ============================================================
+# MAGE PATHS
+#
+# Defines Mage Paths and their Arcana affinities.
+#
+# Structure:
+# - Top-level key = path name (used internally)
+# - Includes flavor + mechanical data
+#
+# Notes:
+# - Arcana must match names in arcana.yml
+# - Used for:
+#     - Display (path command, sheets)
+#     - Validation (ruling/inferior arcana)
+# ============================================================
+
+mastigos:
+  name: "Mastigos"
+  nickname: "Warlocks"
+  description: "Mages connected to Pandaemonium, the Supernal realm of demons and inner struggle."
+  page: "MtAw p. 82"
+
+  ruling:
+    - mind
+    - space
+
+  inferior:
+    - matter
+
+
+moros:
+  name: "Moros"
+  nickname: "Necromancers"
+  description: "Mages connected to Stygia, the Supernal realm of death, endings, and permanence."
+  page: "MtAw p. 84"
+
+  ruling:
+    - death
+    - matter
+
+  inferior:
+    - spirit
+
+
+obrimos:
+  name: "Obrimos"
+  nickname: "Theurgists"
+  description: "Mages connected to Aether, the Supernal realm of celestial fire, divine power, and command."
+  page: "MtAw p. 86"
+
+  ruling:
+    - forces
+    - prime
+
+  inferior:
+    - death
+
+
+thyrsus:
+  name: "Thyrsus"
+  nickname: "Shamans"
+  description: "Mages connected to Primal Wild, the Supernal realm of instinct, spirit, and the living world."
+  page: "MtAw p. 88"
+
+  ruling:
+    - life
+    - spirit
+
+  inferior:
+    - mind
+
+
+acanthus:
+  name: "Acanthus"
+  nickname: "Witches"
+  description: "Mages connected to Arcadia, the Supernal realm of fate, time, and twisted narrative."
+  page: "MtAw p. 80"
+
+  ruling:
+    - fate
+    - time
+
+  inferior:
+    - forces

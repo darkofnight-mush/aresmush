@@ -1,0 +1,57 @@
+# ============================================================
+# ATTRIBUTES
+#
+# Core traits. Used in nearly all dice pools.
+# Organized by category for UI and validation.
+# ============================================================
+
+physical:
+  strength:
+    abbrev: str
+    description: "Raw physical power."
+    page: "CoD p. 60"
+
+  dexterity:
+    abbrev: dex
+    description: "Agility, coordination, and precision."
+    page: "CoD p. 61"
+
+  stamina:
+    abbrev: sta
+    description: "Endurance and resistance to fatigue."
+    page: "CoD p. 61"
+
+mental:
+  intelligence:
+    abbrev: int
+    description: "Reasoning and memory."
+    page: "CoD p. 62"
+
+  wits:
+    abbrev: wits
+    description: "Perception and reaction speed."
+    page: "CoD p. 62"
+
+  resolve:
+    abbrev: res
+    description: "Determination and mental resilience."
+    page: "CoD p. 62"
+
+social:
+  presence:
+    abbrev: pre
+    description: "Force of personality."
+    page: "CoD p. 63"
+
+  manipulation:
+    abbrev: man
+    description: "Social finesse and deception."
+    page: "CoD p. 63"
+
+  composure:
+    abbrev: comp
+    description: "Self-control and poise."
+    page: "CoD p. 63"
+
+metadata:
+  cap: 5

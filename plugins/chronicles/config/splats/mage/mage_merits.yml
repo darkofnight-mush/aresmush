@@ -1,0 +1,61 @@
+# ============================================================
+# MAGE MERITS
+#
+# All Mage-specific merits live here.
+#
+# Subtype Modes:
+# - freeform    → any string allowed
+# - constrained → must match provided list
+#
+# ============================================================
+
+high_speech:
+  dots: 1
+  description: "You can speak and understand the language of magic."
+  page: "Mage p. 101"
+  prerequisites: {}
+
+status:
+  dots: 1-5
+  description: "Your standing within an organization or group."
+  page: "Mage p. ___"
+  subtype: true
+  subtype_mode: freeform
+  prerequisites: {}
+
+consilium_status:
+  dots: 1-5
+  description: "Your standing within a Consilium."
+  page: "Mage p. ___"
+  subtype: true
+  subtype_mode: freeform
+  prerequisites: {}
+
+order_status:
+  dots: 1-5
+  description: "Your standing within a magical Order."
+  page: "Mage p. ___"
+  subtype: true
+  subtype_mode: constrained
+  subtypes:
+    - silver_ladder
+    - mysterium
+    - adamantine_arrow
+    - guardians_of_the_veil
+    - free_council
+  prerequisites:
+    order: any
+
+mystery_cult_initiation:
+  dots: 1-5
+  description: "Access to secret lore and occult knowledge within a Mystery Cult."
+  page: "Mage p. 123"
+  prerequisites:
+    order: mysterium
+
+adamantine_hand:
+  dots: 1-5
+  description: "Martial magical training practiced by the Adamantine Arrow."
+  page: "Mage p. ___"
+  prerequisites:
+    order: adamantine_arrow
