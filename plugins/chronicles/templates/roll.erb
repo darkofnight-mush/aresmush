@@ -13,11 +13,54 @@
  # - Recreate dice logic here
  #
  # ============================================================ -%>
-
+%lh
 <% if chance_roll -%>
-<%= enactor.name %> rolls a chance die.
+<%= enactor.name %> rolls <%= pool %> dice (Chance Die):
 
-Roll: <%= chance_roll %>
+<%# -------------------------
+   BUILD BREAKDOWN COMPONENTS
+   ------------------------- -%>
+<% base_parts = [] -%>
+<% specialty_summary = [] -%>
+<% has_stats = false -%>
+<% if pool_breakdown && pool_breakdown.any? -%>
+<% pool_breakdown.each do |p| -%>
+<% if p[:type] == :stat -%>
+<% has_stats = true -%>
+<% base_parts << "#{p[:name].capitalize} (#{p[:value]})" -%>
+<% if p[:specialties] && p[:specialties].any? -%>
+<% resolved_specs = p[:specialties] -%>
+<% if resolved_specs.any? -%>
+<% specialty_summary << "#{p[:name].capitalize} +#{resolved_specs.count} (#{resolved_specs.map { |x| x.split('_').map(&:capitalize).join(' ') }.join(', ')})" -%>
+<% end -%>
+<% end -%>
+<% else -%>
+<% end -%>
+<% end -%>
+<% end -%>
+<%# -------------------------
+   OUTPUT BREAKDOWN
+   ------------------------- -%>
+<% if has_stats -%>
+Base Pool: <%= base_parts.join(" + ") %>
+<% else -%>
+Base Pool: <%= base_pool %>
+<% end -%>
+
+<% if specialty_summary.any? -%>
+Specialties: <%= specialty_summary.join("; ") %>
+<% end -%>
+<% if modifiers && modifiers.any? -%>
+Modifiers: <%= modifiers.map { |m| sign = m[:value] > 0 ? "+#{m[:value]}" : m[:value]; "#{sign} (#{m[:label]})" }.join(", ") %>
+<% end -%>
+<% if comment && !comment.empty? -%>
+Comment: <%= comment %>
+<% end -%>
+<% if unknown_stats && unknown_stats.any? -%>
+Warning: Unknown stats: <%= unknown_stats.join(", ") %>
+<% end -%>
+%ld
+Roll: <% if chance_roll == 10 %>%xh%xg<%= chance_roll %>%xn<% elsif chance_roll == 1 %>%xh%xr<%= chance_roll %>%xn<% else %><%= chance_roll %><% end %>
 <% if chance_result == :dramatic_failure -%>
 Dramatic Failure!
 <% elsif chance_result == :success -%>
@@ -25,63 +68,87 @@ Success!
 <% else -%>
 Failure.
 <% end -%>
+%ld
+%lf
 <% else -%>
-<%= enactor.name %> rolls <%= base_pool %> dice.
+<%= enactor.name %> rolls <%= pool %> dice:
 
-<% if flags.include?("willpower") -%>(+3 willpower)
+<%# -------------------------
+   BUILD BREAKDOWN COMPONENTS
+   ------------------------- -%>
+<% base_parts = [] -%>
+<% specialty_summary = [] -%>
+<% has_stats = false -%>
+<% if pool_breakdown && pool_breakdown.any? -%>
+<% pool_breakdown.each do |p| -%>
+<% if p[:type] == :stat -%>
+<% has_stats = true -%>
+<% base_parts << "#{p[:name].capitalize} (#{p[:value]})" -%>
+<% if p[:specialties] && p[:specialties].any? -%>
+<% resolved_specs = p[:specialties] -%>
+<% if resolved_specs.any? -%>
+<% specialty_summary << "#{p[:name].capitalize} +#{resolved_specs.count} (#{resolved_specs.map { |x| x.split('_').map(&:capitalize).join(' ') }.join(', ')})" -%>
+<% end -%>
+<% end -%>
+<% else -%>
+<% end -%>
+<% end -%>
 <% end -%>
 <%# -------------------------
-   Dice Tricks (single line)
+   OUTPUT BREAKDOWN
    ------------------------- -%>
+<% if has_stats -%>
+Base Pool: <%= base_parts.join(" + ") %>
+<% else -%>
+Base Pool: <%= base_pool %>
+<% end -%>
+
+<% if specialty_summary.any? -%>
+Specialties: <%= specialty_summary.join("; ") %>
+<% end -%>
+<% if modifiers && modifiers.any? -%>
+Modifiers: <%= modifiers.map { |m| sign = m[:value] > 0 ? "+#{m[:value]}" : m[:value]; "#{sign} (#{m[:label]})" }.join(", ") %>
+<% end -%>
+<%# --- META --- -%>
 <% tricks = [] -%>
 <% tricks << "#{again_threshold}-again" if again_threshold != 10 -%>
 <% tricks << "Rote" if flags.include?("rote") -%>
-<% tricks << "Willpower" if flags.include?("willpower") -%>
 <% if tricks.any? -%>
 Dice Tricks: <%= tricks.join(", ") %>
 <% end -%>
-<%# -------------------------
-   Difficulty + Exceptional
-   ------------------------- -%>
 <% if difficulty != 8 -%>
 Difficulty: <%= difficulty %>
 <% end -%>
 <% if exceptional_threshold != 5 -%>
 Exceptional Threshold: <%= exceptional_threshold %>
 <% end -%>
-<%# -------------------------
-   Comment
-   ------------------------- -%>
+
 <% if comment && !comment.empty? -%>
 Comment: <%= comment %>
 <% end -%>
-<%# -------------------------
-   Stat Warnings
-   ------------------------- -%>
 <% if unknown_stats && unknown_stats.any? -%>
 Warning: Unknown stats: <%= unknown_stats.join(", ") %>
 <% end -%>
+%ld
+
 <%# -------------------------
    Roll Output
    ------------------------- -%>
 <% rolls.each_with_index do |roll, i| -%>
-Roll <%= i + 1 %>: <%= roll.join(' ') %>
+Roll <%= i + 1 %>: <% roll.each_with_index do |r, j| -%><% if j > 0 %> <% end %><% if r >= again_threshold %>%xh%xc<%= r %>%xn<% elsif r >= difficulty %>%xh%xg<%= r %>%xn<% elsif r == 1 %>%xh%xr<%= r %>%xn<% else %><%= r %><% end %><% end %>
 <% end -%>
+
 <%# -------------------------
    Rote Output
    ------------------------- -%>
 <% if rote_rolls && !rote_rolls.empty? -%>
-Rote: <%= rote_rolls.join(' ') %>
+Rote: <% rote_rolls.each_with_index do |r, j| -%><% if j > 0 %> <% end %><% if r >= again_threshold %>%xh%xc<%= r %>%xn<% elsif r >= difficulty %>%xh%xg<%= r %>%xn<% elsif r == 1 %>%xh%xr<%= r %>%xn<% else %><%= r %><% end %><% end %>
 <% end -%>
 <% rote_explosions.each_with_index do |roll, i| -%>
-Rote Explosion <%= i + 1 %>: <%= roll.join(' ') %>
-<% end -%>
-<%# -------------------------
-   Exceptional Success
-   ------------------------- -%>
-<% if total_successes >= exceptional_threshold -%>
-Exceptional Success!
+Rote Explosion <%= i + 1 %>: <% roll.each_with_index do |r, j| -%><% if j > 0 %> <% end %><% if r >= again_threshold %>%xh%xc<%= r %>%xn<% elsif r >= difficulty %>%xh%xg<%= r %>%xn<% elsif r == 1 %>%xh%xr<%= r %>%xn<% else %><%= r %><% end %><% end %>
 <% end -%>
 
-Total Successes: <%= total_successes %>
+%ld
+Total Successes: <%= total_successes %> (<%= total_successes >= exceptional_threshold ? "Exceptional Success!" : (total_successes > 0 ? "Success!" : "Failure.") %>)
+%lf
 <% end -%>

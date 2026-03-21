@@ -6,9 +6,13 @@ module AresMUSH
     $:.unshift File.dirname(__FILE__)
 
     require_relative "commands/roll_cmd"
+    require_relative "commands/set_cmd"
+    require_relative "commands/sheet_cmd"
     require_relative "commands/stat_cmd"
     require_relative "commands/stats_cmd"
     require_relative "models/stats"
+    require_relative "models/chronicles_char"
+    require_relative 'models/sheet_presenter'
 
     def self.plugin_dir
       File.dirname(__FILE__)
@@ -31,6 +35,9 @@ module AresMUSH
 
       when "set"
         return SetCmd
+
+      when "sheet"
+        return SheetCmd
       end
 
       return nil

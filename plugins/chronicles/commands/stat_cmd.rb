@@ -13,19 +13,23 @@ module AresMUSH
       def check
         return "Which stat?" if !stat_name
 
-        # --- UPDATED: pass enactor for splat-aware lookup ---
-        stat_data = Chronicles::Stats.get_stat(stat_name, enactor)
-        return "Stat not found." if !stat_data
+        result = Chronicles::Stats.resolve_stat(stat_name, enactor)
+
+        return "Stat not found." if result[:error] == :not_found
+        return "Did you mean: #{result[:matches].join(', ')}?" if result[:error] == :ambiguous
 
         nil
       end
 
       def handle
-        # --- UPDATED: resolve + fetch using enactor ---
-        name = Chronicles::Stats.resolve(stat_name, enactor)
-        stat_data = Chronicles::Stats.get_stat(stat_name, enactor)
+        result = Chronicles::Stats.resolve_stat(stat_name, enactor)
 
-        # --- SAFETY: avoid titleize crash ---
+        return client.emit("Stat not found.") if result[:error] == :not_found
+        return client.emit("Did you mean: #{result[:matches].join(', ')}?") if result[:error] == :ambiguous
+
+        name = result[:stat]
+        stat_data = Chronicles::Stats.get_stat(name, enactor)
+
         return client.emit("Stat not found.") if !name || !stat_data
 
         client.emit "#{name.titleize}"

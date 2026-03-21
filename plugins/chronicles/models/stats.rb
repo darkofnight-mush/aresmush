@@ -27,12 +27,13 @@ module AresMUSH
       end
 
       # ------------------------------------------------------------
-      # NEW: SPLAT HELPERS
+      # SPLAT HELPERS
       # ------------------------------------------------------------
-
       def self.get_splat(char)
         return nil if !char
-        char.get_attribute("chronicles", "splat")
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+        data["splat"]
       end
 
       def self.splat_groups(char)
@@ -73,7 +74,7 @@ module AresMUSH
       end
 
       # ------------------------------------------------------------
-      # NEW: CHARACTER-AWARE STAT TABLE
+      # CHARACTER-AWARE STAT TABLE
       # ------------------------------------------------------------
       def self.all_stats_for(char)
         combined = all_stats.dup
@@ -98,69 +99,63 @@ module AresMUSH
       end
 
       # ------------------------------------------------------------
-      # RESOLVE NAME OR ABBREV
+      # RESOLVE NAME (SAFE + UX FRIENDLY)
       # ------------------------------------------------------------
-      def self.resolve(name, char = nil)
-        return nil if !name
+      def self.resolve_stat(name, char = nil)
+        return { error: :no_input } if !name
+        return { error: :invalid_type } unless name.is_a?(String)
 
-        key = name.downcase
+        key = name.downcase.strip
 
         stats = char ? all_stats_for(char) : all_stats
 
-        stats.each do |stat, data|
-          return stat if stat == key
-          return stat if data["abbrev"]&.downcase == key
-        end
+        matches = stats.select do |stat, data|
+          next false unless stat.is_a?(String)
 
-        nil
+          stat == key ||
+          data["abbrev"]&.downcase == key ||
+          (key.length >= 3 && stat.start_with?(key))
+        end.keys
+
+        return { stat: matches.first } if matches.size == 1
+        return { error: :not_found } if matches.empty?
+
+        { error: :ambiguous, matches: matches }
       end
 
       # ------------------------------------------------------------
       # GET STAT DATA
       # ------------------------------------------------------------
       def self.get_stat(name, char = nil)
-        key = resolve(name, char)
-        return nil if !key
+        result = resolve_stat(name, char)
+        return nil if result[:error]
 
+        key = result[:stat]
         stats = char ? all_stats_for(char) : all_stats
         stats[key]
       end
 
       # ------------------------------------------------------------
-      # GET CHARACTER STAT VALUE (REDIS-BACKED)
-      #
-      # This is the bridge between:
-      # - YAML stat definitions (what stats exist)
-      # - Character data (what values a character has)
-      #
-      # Uses Ares attribute storage:
-      #   char.set_attribute("chronicles", "dexterity", 3)
-      #
-      # Returns:
-      # - Integer value if set
-      # - 0 if not set (safe default for dice math)
-      # - nil if stat is invalid
-      #
-      # SAFE TO MODIFY:
-      # - Hook in derived stat calculation later
-      # - Add validation hooks
-      #
+      # GET CHARACTER STAT VALUE
       # ------------------------------------------------------------
       def self.get(char, stat_name)
         return nil if !char
 
-        key = resolve(stat_name, char)
-        return nil if !key
+        result = resolve_stat(stat_name, char)
+        return 0 if result[:error]
+
+        key = result[:stat]
 
         stats = all_stats_for(char)
 
-        # --- Derived stat support ---
         stat_data = stats[key]
         if stat_data && stat_data["formula"]
           return evaluate_formula(char, stat_data["formula"])
         end
 
-        val = char.get_attribute("chronicles", key)
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+        val = data[key]
 
         return val.to_i if val
         return 0
@@ -168,34 +163,18 @@ module AresMUSH
 
       # ------------------------------------------------------------
       # FORMULA EVALUATION
-      #
-      # Supports:
-      # - min(a, b)
-      # - addition (+)
-      # - integers
-      # - stat references
-      #
-      # Example:
-      #   "min(dexterity, wits) + athletics"
-      #
-      # NOTE:
-      # This is intentionally simple and safe (no eval).
-      # Extend cautiously if adding new operators.
-      #
       # ------------------------------------------------------------
       def self.evaluate_formula(char, formula)
         return 0 if !formula
 
         expr = formula.dup
 
-        # Handle min(a, b)
         expr.gsub!(/min\(([^,]+),([^)]+)\)/i) do
           a = evaluate_term(char, $1.strip)
           b = evaluate_term(char, $2.strip)
           [a, b].min.to_s
         end
 
-        # Handle addition
         tokens = expr.split("+").map(&:strip)
 
         total = 0
@@ -208,28 +187,27 @@ module AresMUSH
 
       # ------------------------------------------------------------
       # TERM EVALUATION
-      #
-      # Resolves:
-      # - integers
-      # - stat names
-      #
       # ------------------------------------------------------------
       def self.evaluate_term(char, token)
         return 0 if !token
 
         return token.to_i if token.match?(/^\d+$/)
 
-        key = resolve(token, char)
-        return 0 if !key
+        result = resolve_stat(token, char)
+        return 0 if result[:error]
 
-        val = char.get_attribute("chronicles", key)
+        key = result[:stat]
+
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+        val = data[key]
+
         return val.to_i if val
-
-        0
+        return 0
       end
 
       # ------------------------------------------------------------
-      # GROUPED OUTPUT (for stats command)
+      # GROUPED OUTPUT
       # ------------------------------------------------------------
       def self.grouped
         {
@@ -237,6 +215,73 @@ module AresMUSH
           skills: skills.reject { |k, _| k == "metadata" },
           derived: derived.reject { |k, _| k == "metadata" }
         }
+      end
+
+      # ------------------------------------------------------------
+      # SPECIALTIES
+      # ------------------------------------------------------------
+
+      # Normalize specialty input (handles spaces, casing)
+      def self.normalize_specialty(name)
+        return nil if !name
+        name.to_s.downcase.strip.gsub(/\s+/, "_")
+      end
+
+      def self.specialties_for(char, stat)
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+
+        specs = data["specialties"] || {}
+        stat_specs = specs[stat.to_s] || {}
+
+        stat_specs.keys
+      end
+
+      def self.specialty_active?(char, stat, name)
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+
+        specs = data["specialties"] || {}
+        stat_specs = specs[stat.to_s] || {}
+
+        stat_specs[name.to_s].to_i > 0
+      end
+
+      # Resolve specialty like stats (prefix matching, ambiguity safe)
+      def self.resolve_specialty(char, stat, input)
+        return nil if !char || !stat || !input
+
+        input = normalize_specialty(input)
+
+        specs = specialties_for(char, stat)
+
+        matches = specs.select do |s|
+          s == input || s.start_with?(input)
+        end
+
+        return matches.first if matches.size == 1
+        return nil if matches.empty?
+
+        { error: :ambiguous, matches: matches }
+      end
+
+      def self.set_specialty(char, stat, name, value)
+        cc = ChroniclesChar.for_char(char)
+        data = cc.chronicles || {}
+
+        name = normalize_specialty(name)
+
+        data["specialties"] ||= {}
+        data["specialties"][stat] ||= {}
+
+        if value.to_i > 0
+          data["specialties"][stat][name] = 1
+        else
+          data["specialties"][stat].delete(name)
+          data["specialties"].delete(stat) if data["specialties"][stat].empty?
+        end
+
+        cc.update(chronicles: data)
       end
 
     end
